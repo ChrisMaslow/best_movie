@@ -20,10 +20,6 @@ class Movie:
 		self.info_link = info_link
 		self.cover_link =cover_link
 
-	def print_data(self):
-
-		return "{},{},{},{},{},{}".format(self.name, self.rate, self.location, self.category, self.info_link, self.cover_link)
-
 # 任务4
 """
 return a list of Movie objects with the given category and location.
@@ -41,13 +37,19 @@ def getMovies(category, location):
 			m_category = category
 			m_info_link = a_tag.get('href')
 			m_cover_link = a_tag.find('img').get('src')
-			movies.append(Movie(m_name, m_rate, m_location, m_category, m_info_link, m_cover_link).print_data())
+			movies.append([m_name, m_rate, m_location, m_category, m_info_link, m_cover_link])
 	return movies
 
 category= '剧情'
 location_list = ['瑞典']
 movies_csv = getMovies(category,location_list)
 print(movies_csv)
+'''
 with open('movies.csv', 'w') as f:
     csvwriter = csv.writer(f)
     csvwriter.writerow(movies_csv)
+'''
+with open('movies.csv', 'w', newline='') as f:
+    csvwriter = csv.writer(f)
+    for row in movies_csv:
+        csvwriter.writerow(row)
