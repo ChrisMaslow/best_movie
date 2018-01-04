@@ -54,38 +54,35 @@ with open('movies.csv', 'w') as f:
     writer = csv.writer(f)
     for row in movies_list:
         writer.writerow(row)
-'''
+
 # 任务6
 with open('movies.csv', 'r') as f:
 	reader = csv.reader(f)
 	movies_csv = list(reader)
 
-movie_cat = [[], [], []]
+message = '{}电影数量排名前三的地区是{}、{}、{}，分别占此类别电影总数的百分比为{}、{}、{}。\n'
 
-sum = 0
-quantity = []
-percentage = []
+# 计算单个地区电影数量与总量的百分比
+def percentage(count, sum):
+	pct = '%.2f%%' % (count / sum * 100)
+	return pct
 
 with open('output.txt', 'w') as f:
-	for movie in movies_csv:
-		if movie[3] = category_list[0]:
-			movie_cat[0].append(movie)
-		elif movie[3] = category_list[1]:
-			movie_cat[1].append(movie)
-		else:
-			movie_cat[2].append(movie)
+	for cat in category_list:
+		temp = []
+		sum = 0
+		for loc in location_list:
+			count = 0
+			for movie in movies_csv:
+				if movie[3] == cat and movie[2] == loc:
+					count += 1
+					sum += 1
+			temp.append((loc, count))
+			temp = sorted(temp, key=lambda x:x[1], reverse=True)
 
-	i = 0
-	message = '{}电影数量排名前三的地区是{}、{}、{}，分别占此类别电影总数的百分比为{}、{}、{}。\n'
-	for i in range(len(category_list)-1):
-		movie_loc = {}
-		j = 0
-		for j in range(len(movie_cat[i]-1))
-			if movie_cat[i][j][2] not in movie_loc:
-				movie_loc[movie_cat[i][j][2]] = 1
-			else:
-				movie_loc[movie_cat[i][j][2]] += 1
+		pct = []
+		for i in range(3):
+		 	pct.append(percentage(temp[i][1], sum))
 
-
-		f.write(message.format(category_list[i], ))
-'''
+		print(message.format(cat, temp[0][0], temp[1][0], temp[2][0], pct[0], pct[1], pct[2]))
+		f.write(message.format(cat, temp[0][0], temp[1][0], temp[2][0], pct[0], pct[1], pct[2]))
