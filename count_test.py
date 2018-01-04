@@ -7,13 +7,14 @@ with open('movies.csv', 'r') as f:
 	reader = csv.reader(f)
 	movies_csv = list(reader)
 
-message = '{}电影数量排名前三的地区是{}、{}、{}，分别占此类别电影总数的百分比为{}、{}、{}。\n'
-
-# 计算单个地区电影数量与总量的百分比
+# 计算单个地区电影数量的占比
 def percentage(count, sum):
 	pct = '%.2f%%' % (count / sum * 100)
 	return pct
 
+message = '{}电影数量排名前三的地区是{}、{}、{}，分别占此类别电影总数的百分比为{}、{}、{}。\n'
+
+# 求出每个类型电影数量最多的三个地区以及占比
 with open('output.txt', 'w') as f:
 	for cat in category_list:
 		temp = []
